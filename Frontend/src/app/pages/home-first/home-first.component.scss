@@ -1,0 +1,31 @@
+.contenedor {
+  padding: 25px;
+}
+.title {
+  text-align: center;
+  h1{
+    font-size: 39px;
+    padding: 40px;
+  }
+  p{
+    font-size: 16px;
+  }
+
+}
+
+.Columnas{
+  display: 4;
+  grid-template-columns: 3fr !important;
+  img {
+    max-width: 200px;
+    position: relative;
+  }
+  .right {
+    width: 210px;
+    float: right;
+  }
+  .left {
+    width: 210px;
+    float: left;
+  }
+}

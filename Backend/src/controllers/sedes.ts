@@ -6,60 +6,95 @@ import { mensaje } from 'interfaces';
 
 //Crear Sede
 export async function CrearSede(req: Request, res: Response) {
-  const { Nombre } = req.body;
 
-  const NewSede = { Nombre };
+  const NewSede: ISede = req.body
 
-  const Sede: ISede = new Sedes(NewSede);
+  await Sedes.create(NewSede).then((Sede) => {
+    var mensaje: mensaje = {
+      icon: "success",
+      titulo: "Se guardo exitosamente",
+      mensaje: "El registro del " + Sede.Nombre
+    };
+    return res.status(200).json(mensaje);
+  })
 
-  await Sede.save(function (err) {
-    if (err) {
+    .catch((err) => {
       var mensaje: mensaje = {
         icon: "error",
         titulo: "Error",
         mensaje: "Esta sede ya se encuentra registrada"
       };
       return res.status(400).json(mensaje);
-    }
-
-    var mensaje: mensaje = {
-      icon: "success",
-      titulo: "Se guardo exitosamente",
-      mensaje: "El registro de " + Nombre
-    };
-
-    return res.status(200).json(mensaje);
-  });
+    });
 }
 
 //Buscar Sede
 export async function ObtenerSede(
   req: Request,
   res: Response
-): Promise<Response> {
+) {
+  await Sedes.findById(req.params.id).then((Sede) => {
+    return res.status(200).json(Sede);
+  })
 
-  const Sede = await Sedes.find().exec();
-  return res.json(Sede);
-  
+  .catch((err) => {
+    var mensaje: mensaje = {
+      icon: "error",
+      titulo: "Oops",
+      mensaje: "Se ha presentado un error"
+    };
+    return res.status(400).json(mensaje);
+  });
+
 }
+
+//Listar sedes
+export async function ObtenerSedes(
+  req: Request,
+  res: Response
+) {
+
+  await Sedes.find()
+    .sort({ Nombre: 'asc' }).then((Sede) => {
+      return res.status(200).json(Sede);
+    })
+
+    .catch((err) => {
+      var mensaje: mensaje = {
+        icon: "error",
+        titulo: "Oops",
+        mensaje: "Se ha presentado un error"
+      };
+      return res.status(400).json(mensaje);
+    });
+}
+
 
 //Eliminar Sede
 export async function EliminarSede(
   req: Request,
   res: Response
-): Promise<Response> {
+) {
   const { id } = req.params;
 
-  await Sedes.findByIdAndRemove(id);
+  await Sedes.findByIdAndRemove(id).then((Sede) => {
+    var mensaje: mensaje = {
+      icon: "success",
+      titulo: "Eliminación exitosa",
+      mensaje: "Se ha borrado el registro"
+    };
+    return res.status(200).json(mensaje);
+  })
+    
+     .catch((err) => {
+      var mensaje: mensaje = {
+        icon: "error",
+        titulo: "Oops",
+        mensaje: "Se ha presentado un error"
+      };
+      return res.status(400).json(mensaje);
+     });
 
-  var mensaje: mensaje = {
-    icon: "success",
-    titulo: "Eliminación exitosa",
-    mensaje: "Se ha borrado el registro"
-  };
-
-
-  return res.status(200).json(mensaje);
 }
 
 //Actualizar Sede
@@ -68,15 +103,15 @@ export async function ActualizarSede(
   res: Response
 ): Promise<Response> {
   const { id } = req.params;
-  const { Nombre } = req.body;
+  const UpSede: ISede = req.body;
 
   const Sede = await Sedes.findByIdAndUpdate(
     id,
-    {
-      Nombre
-    },
+    
+      UpSede
+    ,
     { new: true }
   );
 
   return res.json(Sede);
-}
+ }

@@ -1,0 +1,87 @@
+<div class="containerMain">
+  <mat-card>
+    <mat-card-title>
+      {{titulo}} empleo de egresado
+    </mat-card-title>
+    <br/>
+        <div class="foto">
+            <img src="assets/work.svg" alt="">
+        </div>
+        <br/>
+        <mat-card-content>
+          <form [formGroup]="FormEmpleo" (ngSubmit)="Submit()">
+            <mat-form-field appearance="outline" class="media-width">
+              <mat-label>Documento de Egresado</mat-label>
+              <mat-icon matSuffix>class</mat-icon>
+              <mat-select formControlName="IdAprendiz">
+                <mat-option *ngFor="let item of Aprendiz" [value]="item._id">
+                  {{ item.Documento }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="media-width">
+              <mat-label>
+                  Empresa de empleo
+              </mat-label>
+              <input type="text" matInput
+              formControlName="Empresa" placeholder="Empresa de empleo">
+              <mat-icon matSuffix>card_travel</mat-icon>
+          </mat-form-field>
+
+
+          <mat-form-field appearance="outline" color="accent" class="media-width">
+            <mat-label>Fecha de entrada a empresa</mat-label>
+            <input matInput [matDatepicker]="dateEntradaEmpresa" formControlName="EntradaEmpresa">
+            <mat-datepicker-toggle matSuffix [for]="dateEntradaEmpresa"></mat-datepicker-toggle>
+            <mat-datepicker #dateEntradaEmpresa color="primary"></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="media-width">
+            <mat-label>Tipo de Contrato firmado</mat-label>
+            <mat-select formControlName="TipoContrato">
+              <mat-option value="Por Prestación de Servicios">Por Prestación de Servicios</mat-option>
+              <mat-option value="Término fijo">Término fijo</mat-option>
+              <mat-option value="De Obra">De Obra</mat-option>
+              <mat-option value="Término indefinido">Término indefinido</mat-option>
+              <mat-option value="Ocasional de trabajo">ocasional de trabajo</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="media-width">
+            <mat-label>
+              Cargo del egresado
+            </mat-label>
+            <input type="text" matInput
+            formControlName="Cargo" placeholder="Cargo del egresado">
+            <mat-icon matSuffix>post_add</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="media-width">
+          <mat-label>
+            Comentarios
+          </mat-label>
+          <textarea
+            matInput
+            cols="30"
+            rows="10"
+            type="text"
+            matInput
+            formControlName="Comentarios"
+            placeholder="Comentarios"
+          >
+          </textarea>
+        </mat-form-field>
+
+        <div class="btn">
+          <button mat-raised-button color="primary">
+            {{titulo}}
+            <mat-icon>send</mat-icon>
+          </button>
+        </div>
+          </form>
+        </mat-card-content>
+  </mat-card>
+
+</div>
+

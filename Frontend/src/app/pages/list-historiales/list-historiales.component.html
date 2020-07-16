@@ -1,0 +1,95 @@
+<mat-card>
+  <mat-card-title>
+    Historial de seguimiento de aprendiz
+  </mat-card-title>
+  <mat-card-content>
+    <mat-form-field>
+      <mat-label>
+        Buscar Historial
+      </mat-label>
+      <input
+        matInput
+        (keyup)="applyFilter($event)"
+        placeholder="Ex. "
+      />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="Pruebas">
+        <th mat-header-cell *matHeaderCellDef>Prueba de seguimiento</th>
+        <td mat-cell *matCellDef="let element">
+          <img class="foto" [src]="api.url() + element.Pruebas"
+          alt=""/>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Aprendiz">
+        <th mat-header-cell *matHeaderCellDef>Documento de aprendiz</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.Aprendiz.Documento }}
+        </td>
+      </ng-container>
+
+     <ng-container matColumnDef="Admin">
+        <th mat-header-cell *matHeaderCellDef>Funcionario que realizo el seguimiento</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.Admin.Nombres }}
+          {{ element.Admin.P_Apellido }}
+          {{ element.Admin.S_Apellido }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="MedioComunicacion">
+        <th mat-header-cell *matHeaderCellDef>Medio de comunicación</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.MedioComunicacion }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Comentarios">
+        <th mat-header-cell *matHeaderCellDef>Comentarios</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.Comentarios }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef>Fecha de seguimiento</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.createdAt | dateCustom }}
+        </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="Acciones">
+        <th mat-header-cell *matHeaderCellDef class="Acciones">Acciones</th>
+        <td mat-cell *matCellDef="let element" class="Acciones">
+          <div class="icons">
+            <button
+              mat-icon-button
+              class="delete"
+              (click)="acciones('2', element._id)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr
+          mat-row
+          [@rowsAnimation]=""
+          *matRowDef="let row; columns: displayedColumns"
+        ></tr>
+
+    </table>
+
+    <app-spiner *ngIf="carga"></app-spiner>
+      <div *ngIf="noData" class="noData">
+        No hay historiales de seguimiento de este aprendiz
+      </div>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </mat-card-content>
+</mat-card>

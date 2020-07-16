@@ -1,0 +1,12 @@
+<button type="button" class="tamaño" mat-raised-button (click)="pdfInput.click()"
+color="primary">
+  Hoja de vida
+  <mat-icon>picture_as_pdf</mat-icon>
+</button>
+<input hidden
+#pdfInput
+type="file"
+id="pdf"
+class="tamaño"
+(change)="onFileSelected()"
+accept="application/pdf"/>

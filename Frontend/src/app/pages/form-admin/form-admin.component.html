@@ -1,0 +1,63 @@
+<div class="Container">
+    <mat-card>
+
+        <div class="foto">
+            <img src="assets/contacts.svg" alt="">
+        </div>
+        <br />
+        <mat-card-content>
+            <form [formGroup]="FormAdmin" (ngSubmit)="CrearAdmin()">
+                <mat-form-field appearance="outline" class="media-width">
+                    <mat-label>Documento</mat-label>
+                    <input type="number" matInput placeholder="Documento" formControlName="Cedula" required
+                        autofocus />
+                    <mat-icon matSuffix>credit_card</mat-icon>
+                </mat-form-field>
+                <br />
+                <mat-form-field appearance="outline" class="media-width">
+                    <mat-label>Nombres</mat-label>
+                    <input type="text" matInput placeholder="Nombres" formControlName="Nombres" />
+                    <mat-icon matSuffix>account_circle</mat-icon>
+                </mat-form-field>
+
+
+                <mat-form-field appearance="outline" class="media-width">
+                    <mat-label>Primer Apellido</mat-label>
+                    <input type="text" matInput placeholder="Primer Apellido" formControlName="P_Apellido">
+                    <mat-icon matSuffix>account_circle</mat-icon>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="media-width">
+                    <mat-label>Segundo Apellido</mat-label>
+                    <input type="text" matInput placeholder="Segundo Apellido" formControlName="S_Apellido" />
+                    <mat-icon matSuffix>account_circle</mat-icon>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="media-width">
+                  <mat-label>Sexo</mat-label>
+                  <mat-select formControlName="Sexo">
+                    <mat-option value="Masculino">Masculino</mat-option>
+                    <mat-option value="Femenino">Femenino</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="media-width">
+                    <mat-label>Ingrese su contraseña</mat-label>
+                    <input matInput [type]="hide ? 'password' : 'text'" placeholder="Contraseña"
+                        formControlName="Password">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+
+                <div class="btn">
+                    <button mat-raised-button color="primary" [disabled]="!FormAdmin.valid">
+                        Registrar
+                        <mat-icon>send</mat-icon>
+                    </button>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

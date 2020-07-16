@@ -1,0 +1,69 @@
+<div class="containerMain">
+  <mat-card class="mat-elevation-z8">
+      <mat-card-title>
+          Lista de Administradores
+      </mat-card-title>
+      <mat-card-content>
+          <mat-form-field>
+              <mat-label>
+                  Buscar Administradores
+              </mat-label>
+              <input matInput (keyup)="applyFilter($event)" placeholder="Ex. 3664321">
+              <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+
+          <table mat-table [dataSource]="dataSource">
+              <ng-container
+                *ngFor="let item of columns"
+                [matColumnDef]="item.columnDef"
+              >
+                <th
+                  mat-header-cell
+                  *matHeaderCellDef
+                  [ngClass]="{ Acciones: item.columnDef == 'Acciones' }"
+                >
+                  {{ item.header }}
+                </th>
+                <td
+                  [@rowsAnimation]=""
+                  mat-cell
+                  *matCellDef="let row"
+                  [ngClass]="{ Acciones: item.columnDef == 'Acciones' }"
+                >
+                  <ng-container *ngIf="item.columnDef == 'Acciones'; else another">
+                    <table>
+                      <td>
+                        <div class="icons">
+                          <button
+                            mat-icon-button
+                            class="delete"
+                            (click)="acciones('2', row._id)"
+                          >
+                            <mat-icon>delete</mat-icon>
+                          </button>
+                        </div>
+                      </td>
+                    </table>
+                  </ng-container>
+                  <ng-template #another>
+                    {{ item.cell(row) }}
+                  </ng-template>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row
+              *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row
+              *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+
+          <app-spiner *ngIf="carga"></app-spiner>
+          <div *ngIf="noData" class="noData">
+              No hay administradores registrados
+          </div>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+      </mat-card-content>
+  </mat-card>
+</div>

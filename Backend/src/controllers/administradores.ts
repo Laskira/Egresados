@@ -3,50 +3,47 @@ import { encryptPassword, validateEncrypt } from '../libs/password';
 import jwt from 'jsonwebtoken';
 
 //Modelos
-import  Administrador, { IAdministracion } from '../models/administradores';
+import Administrador, { IAdministracion } from '../models/administradores';
 import { mensaje } from 'interfaces';
 
 //Crear Admin
 export async function CrearAdmin(req: Request, res: Response) {
-    const {Documento, Nombres, P_Apellido, S_Apellido, Password} = req.body;
-    
-    const NewAdmin = {Documento, Nombres, P_Apellido, S_Apellido, Password};
 
-    const Administracion: IAdministracion = new Administrador(NewAdmin);
+    const NewAdmin: IAdministracion = req.body;
 
-    Administracion.Password = await encryptPassword(Password);
+    NewAdmin.Password = await encryptPassword(NewAdmin.Password);
 
-    await Administracion.save(function (err) {
-        if (err) {
-            var mensaje: mensaje = {
-                icon: "error",
-                titulo: "Error",
-                mensaje: "El documento ingresado ya se encuentra registrado"
-            };
-            return res.status(400).json(mensaje);
-        }
-
+    await Administrador.create(NewAdmin).then((Admin) => {
         var mensaje: mensaje = {
             icon: "success",
             titulo: "Registrado exitosamente",
             mensaje: "Usted ha sido registrado exitosamente"
         };
         return res.status(200).json(mensaje);
-    });
+    })
+
+        .catch((err) => {
+            var mensaje: mensaje = {
+                icon: "error",
+                titulo: "Error",
+                mensaje: "El documento ingresado ya se encuentra registrado"
+            };
+            return res.status(400).json(mensaje);
+        })
 
 }
 
 //Iniciar sesión
 export async function IniciarSesion(
-    req: Request, 
+    req: Request,
     res: Response
 ): Promise<Response> {
-    const {Password, Documento} = req.body;
+    const { Password, Documento } = req.body;
 
-    const User = await Administrador.findOne({Documento: Documento});
+    const User = await Administrador.findOne({ Documento: Documento });
 
     //Comprobación de Documento
-    if(!User) {
+    if (!User) {
         var mensaje: mensaje = {
             icon: "errror",
             titulo: "Error",
@@ -62,7 +59,7 @@ export async function IniciarSesion(
         User.Password
     );
 
-    if(!passwordCorrecta) {
+    if (!passwordCorrecta) {
         var mensaje: mensaje = {
             icon: "error",
             titulo: "Error",
@@ -71,22 +68,19 @@ export async function IniciarSesion(
         return res.status(400).json(mensaje);
     }
 
-    //Saludo
-    var saludo: any = "Bienvenido " + User.Nombres
-
     const token: string = jwt.sign(
-        {_id: User._id},
+        { _id: User._id },
         process.env.TOKEN_SECRET || 'TokenTest'
     );
 
-    return res.status(200).json({token, saludo});
+    return res.status(200).json({ token });
 }
 
 //Perfil
-export async function Perfil(req: Request, res: Response){
-    const User = await Administrador.findById(req.url, {Password: 0});
-    if(!User)
-     return res.status(400).json("El usuario no se encuentra registrado")
+export async function Perfil(req: Request, res: Response): Promise<Response> {
+    const User = await Administrador.findById(req.url, { Password: 0 });
+    if (!User)
+        return res.status(400).json("El usuario no se encuentra registrado")
 
     return res.json(User);
 }
@@ -96,11 +90,10 @@ export async function ActualizarPerfil(
     req: Request,
     res: Response
 ): Promise<Response> {
-    const {id} = req.params;
-    const {Nombres, P_Apellido, S_Apellido, Password} = req.body;
-    const UpdateUser = {Nombres, P_Apellido, S_Apellido, Password};
+    const { id } = req.params;
+    const UpdateUser = req.body;
 
-    UpdateUser.Password = await encryptPassword(Password);
+    UpdateUser.Password = await encryptPassword(UpdateUser.Password);
 
     const UpdateAcount = await Administrador.findByIdAndUpdate(id, UpdateUser, {
         new: true
@@ -118,7 +111,7 @@ export async function EliminarCuenta(
     const User = await Administrador.findByIdAndRemove(id);
 
     let nombre: string = "";
-    if(User) {
+    if (User) {
         nombre = User.Nombres;
     }
 
@@ -135,10 +128,19 @@ export async function EliminarCuenta(
 export async function VerCuentas(
     req: Request,
     res: Response
-): Promise<Response> {
-    const Users = await Administrador.find();
+) {
+    await Administrador.find()
+    .sort({Documento: 1})
+    .then((Admin) => {
+        return res.status(200).json(Admin);
+    })
 
-    Users.splice(0, 1);
-
-    return res.json(Users);
+    .catch((err) => {
+        var mensaje: mensaje = {
+          icon: "error",
+          titulo: "Oops",
+          mensaje: "Se ha presentado un error",
+        };
+        return res.status(400).json(mensaje);
+      });
 }

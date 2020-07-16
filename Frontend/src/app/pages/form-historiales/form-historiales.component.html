@@ -1,0 +1,77 @@
+<div class="containerMain">
+  <mat-card>
+    <mat-card-title> {{ titulo }} seguimiento sena - aprendiz </mat-card-title>
+    <br />
+    <div class="foto">
+      <img src="assets/group.svg" alt="" />
+    </div>
+    <br />
+    <mat-card-content>
+      <form [formGroup]="FormHistorial" (ngSubmit)="Submit()">
+        <mat-form-field appearance="outline" class="media-width">
+          <mat-label>Documento aprendiz</mat-label>
+          <mat-icon matSuffix>person</mat-icon>
+          <mat-select formControlName="IdAprendiz">
+            <mat-option *ngFor="let item of Aprendiz" [value]="item._id">
+              {{ item.Documento }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="media-width">
+          <mat-label>Documento administrador a cargo del seguimiento</mat-label>
+          <mat-icon matSuffix>person</mat-icon>
+          <mat-select formControlName="IdAdmin">
+            <mat-option *ngFor="let item of Admin" [value]="item._id">
+              {{ item.Documento }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="media-width">
+          <mat-label>Medio de Comunicacion</mat-label>
+          <mat-select formControlName="MedioComunicacion">
+            <mat-option value="Télefono">Télefono</mat-option>
+            <mat-option value="Correo eléctronico">Correo eléctronico</mat-option>
+            <mat-option value="Visita">Visita</mat-option>
+            <mat-option value="Otro">Otro</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="media-width">
+          <mat-label>
+            Comentarios
+          </mat-label>
+          <textarea
+            matInput
+            cols="30"
+            rows="10"
+            type="text"
+            matInput
+            formControlName="Comentarios"
+            placeholder="Comentarios"
+          >
+          </textarea>
+        </mat-form-field>
+
+        <div class="form-group">
+          <app-files
+            formControlName="Pruebas"
+            required
+          ></app-files>
+        </div>
+        <br/>
+        <h2>
+          Sube una prueba de contacto Sena - Aprendiz
+       </h2>
+
+        <div class="btn">
+          <button mat-raised-button color="primary" [disabled]="!FormHistorial.valid">
+            Registrar
+            <mat-icon>send</mat-icon>
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

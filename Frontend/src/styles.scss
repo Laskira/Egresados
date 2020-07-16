@@ -1,0 +1,244 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import "~@angular/material/theming";
+//@import 'bootstrap/scss/bootstrap-grid.scss';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$Frontend-primary: mat-palette($mat-indigo, A500);
+$Frontend-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$Frontend-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$Frontend-theme: mat-light-theme(
+  $Frontend-primary,
+  $Frontend-accent,
+  $Frontend-warn
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($Frontend-theme);
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import "~@angular/material/theming";
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$Frontend-primary: mat-palette($mat-indigo);
+$Frontend-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$Frontend-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$Frontend-theme: mat-light-theme(
+  $Frontend-primary,
+  $Frontend-accent,
+  $Frontend-warn
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($Frontend-theme);
+
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: #f5f5f5;
+}
+
+@font-face {
+  font-family: "Material Icons";
+  font-style: normal;
+  font-weight: 400;
+  src: url(assets/iconos.woff2) format("woff2");
+}
+
+.material-icons {
+  font-family: "Material Icons";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: "liga";
+  -webkit-font-smoothing: antialiased;
+}
+
+.mat-card {
+  margin: auto !important;
+  padding: 8px 16px !important;
+  border-radius: 15px !important;
+
+  .mat-card-title {
+    display: flex;
+    justify-content: center;
+    padding: 15px 0px;
+  }
+}
+
+.mat-button {
+  border-radius: 30px !important;
+  padding: 6px !important;
+  font-size: 1.3em !important;
+  background: #f5f5f5;
+
+  .mat-icon {
+    margin-left: 10px;
+  }
+}
+
+table {
+  width: 100%;
+}
+
+.icons {
+  display: flex;
+}
+
+.Acciones {
+  width: 100px !important;
+}
+
+.mat-header-cell + .Acciones {
+  text-align: center !important;
+}
+
+.containerMain {
+  display: grid;
+  grid-template-columns: 1fr;
+  width: 1fr !important;
+  min-height: 85vh;
+
+  .mat-card {
+    width: 80%;
+  }
+}
+
+.noData {
+  display: flex;
+  height: 200px;
+  align-items: center;
+  justify-content: center;
+  font-size: 3em;
+}
+
+.delete {
+  color: #d33;
+}
+
+.update {
+  color: #2b0d72;
+}
+
+.swal2-timer-progress-bar {
+  height: 0.4em !important;
+  border-bottom-right-radius: 5px !important;
+  border-bottom-left-radius: 5px !important;
+  border-top-right-radius: 5px !important;
+  background: rgb(0, 160, 252) !important;
+  background: linear-gradient(
+    342deg,
+    rgb(218, 224, 219) 0%,
+    rgb(7, 10, 156) 98%
+  ) !important;
+}
+
+.swal2-popup.swal2-toast {
+  padding: 15px 50px !important;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0px;
+
+  .mat-button {
+    width: 80%;
+    background: #f5f5f5;
+  }
+}
+
+.form-responsive {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+
+  & span:last-of-type {
+    grid-column: span 2;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    button {
+      width: 80%;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  form {
+    grid-template-columns: 1fr !important;
+    & span:last-of-type {
+      grid-column: span 1;
+      button {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.mat-card {
+  position: relative;
+  .foto {
+      display: flex;
+      justify-content: center;
+      img {
+        height: 180px;
+        margin: 0;
+        padding: 0;
+        margin-top: -80;
+      }
+    }
+}
+

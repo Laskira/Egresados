@@ -1,0 +1,162 @@
+<div class="containerMain twoColumns">
+  <mat-card>
+    <mat-card-title>
+      {{ titulo }} Aprendices
+    </mat-card-title>
+    <br/>
+    <div class="foto">
+        <img src="assets/aprendiz.svg" alt="">
+    </div>
+    <br/>
+    <mat-card-content>
+      <form [formGroup]="FormAprendiz" (ngSubmit)="Submit()" class="form-responsive">
+        <mat-form-field appearance="outline" class="media-width">
+          <mat-label>
+            Número de Documento
+          </mat-label>
+          <input
+            type="number"
+            matInput
+            formControlName="Documento"
+            placeholder="Número de Documento"
+            required
+            autofocus
+          />
+          <mat-icon matSuffix>credit_card</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="media-width">
+          <mat-label>
+            Nombres
+          </mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="Nombres"
+            placeholder="Nombres"
+          />
+          <mat-icon matSuffix>perm_identity</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="media-width">
+          <mat-label>
+            Primer apellido
+          </mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="P_Apellido"
+            placeholder="Primer apellido"
+          />
+          <mat-icon matSuffix>perm_identity</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="media-width">
+          <mat-label>
+            Segundo apellido
+          </mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="S_Apellido"
+            placeholder="Segundo apellido"
+          />
+          <mat-icon matSuffix>perm_identity</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="media-width">
+          <mat-label>Sexo</mat-label>
+          <mat-select formControlName="Sexo">
+            <mat-option value="Masculino">Masculino</mat-option>
+            <mat-option value="Femenino">Femenino</mat-option>
+            <mat-option value="Otro">Otro</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="media-width">
+          <mat-label>
+            Número de télefono
+          </mat-label>
+          <span matPrefix>+57 &nbsp;</span>
+          <input
+            type="number"
+            matInput
+            formControlName="Telefono"
+            placeholder="Número de télefono"
+          />
+          <mat-icon matSuffix>phone</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="media-width">
+          <mat-label>
+            Correo electrónico
+          </mat-label>
+          <input
+            type="email"
+            matInput
+            formControlName="Correo"
+            placeholder="Correo electrónico"
+          />
+          <mat-icon matSuffix>email</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="media-width">
+          <mat-label>
+            Dirección
+          </mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="Direccion"
+            placeholder="Dirección"
+          />
+          <mat-icon matSuffix>house</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="media-width">
+          <mat-label>Ficha técnica</mat-label>
+          <mat-icon matSuffix>people</mat-icon>
+          <mat-select formControlName="IdFichaTecnica">
+            <mat-option *ngFor="let item of FichaTecnica" [value]="item._id">
+              {{ item.Numero }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="media-width">
+          <mat-label>Ficha tecnólogica</mat-label>
+          <mat-icon matSuffix>people</mat-icon>
+          <mat-select formControlName="IdFichaTecnologica">
+            <mat-option
+              *ngFor="let item of FichaTecnologica"
+              [value]="item._id"
+            >
+              {{ item.Numero }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="media-width">
+          <mat-label>Estado de prácticas</mat-label>
+          <mat-select formControlName="Practicas">
+            <mat-option value="Pendientes">Pendientes</mat-option>
+            <mat-option value="En proceso">En proceso</mat-option>
+            <mat-option value="Finalizadas">Finalizadas</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <app-file-pdf formControlName="HojaVida" required></app-file-pdf>
+        <span>
+          <button
+            mat-raised-button
+            color="primary"
+            [disabled]="!FormAprendiz.valid"
+          >
+            {{ titulo }} aprendiz
+            <mat-icon>send</mat-icon>
+          </button>
+        </span>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,161 @@
+<!--Menú-->
+<mat-toolbar color="primary" class="navbar">
+  <mat-toolbar-row>
+    <button mat-icon-button (click)="menuActive=!menuActive">
+      <mat-icon>school</mat-icon>
+    </button>
+    <span>Tracing</span>
+
+    <span class="espaciador"></span>
+
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>settings</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="token.logout()">
+        <mat-icon>power_settings_new</mat-icon>
+        <span>Cerrar sesión</span>
+      </button>
+      <button mat-menu-item [routerLink]="['administrador/listar']">
+        <mat-icon>person</mat-icon>
+        <span>Ver Administradores</span>
+      </button>
+    </mat-menu>
+
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="container" [ngClass]="{'menu-active': menuActive}">
+
+  <aside class="barra">
+    <mat-list>
+      <mat-list-item class="home"
+      matRipple [routerLink]="['/admin']"
+      routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }">
+        <mat-icon matSuffix>home</mat-icon>
+        Inicio
+      </mat-list-item>
+    </mat-list>
+
+    <mat-expansion-panel class="mat-elevation-z0">
+      <mat-expansion-panel-header>
+        <mat-icon matSuffix>store_mall_directory</mat-icon>
+        Sedes
+      </mat-expansion-panel-header>
+
+      <ng-template matExpansionPanelContent>
+        <mat-list>
+          <mat-list-item matRipple
+          *ngFor="let action of sede"
+          [routerLink]="[action.Router]"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }">
+            <mat-icon> {{action.Icon}} </mat-icon>
+            {{action.Label}}
+          </mat-list-item>
+        </mat-list>
+      </ng-template>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel class="mat-elevation-z0">
+      <mat-expansion-panel-header>
+        <mat-icon matSuffix>class</mat-icon>
+        Formaciones
+      </mat-expansion-panel-header>
+      <ng-template matExpansionPanelContent>
+        <mat-list>
+          <mat-list-item matRipple
+          *ngFor="let action of formacion"
+          [routerLink]="[action.Router]"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }">
+            <mat-icon> {{action.Icon}} </mat-icon>
+            {{action.Label}}
+          </mat-list-item>
+        </mat-list>
+      </ng-template>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel class="mat-elevation-z0">
+      <mat-expansion-panel-header>
+        <mat-icon matSuffix>supervisor_account</mat-icon>
+        Fichas
+      </mat-expansion-panel-header>
+      <ng-template matExpansionPanelContent>
+        <mat-list>
+          <mat-list-item matRipple
+          *ngFor="let action of ficha"
+          [routerLink]="[action.Router]"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }">
+            <mat-icon> {{action.Icon}} </mat-icon>
+            {{action.Label}}
+          </mat-list-item>
+        </mat-list>
+      </ng-template>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel class="mat-elevation-z0">
+      <mat-expansion-panel-header>
+        <mat-icon matSuffix>perm_identity</mat-icon>
+        Aprendices
+      </mat-expansion-panel-header>
+      <ng-template matExpansionPanelContent>
+        <mat-list>
+          <mat-list-item matRipple
+          *ngFor="let action of aprendiz"
+          [routerLink]="[action.Router]"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }">
+            <mat-icon> {{action.Icon}} </mat-icon>
+            {{action.Label}}
+          </mat-list-item>
+        </mat-list>
+      </ng-template>
+    </mat-expansion-panel>
+
+    <!--<mat-expansion-panel class="mat-elevation-z0">
+      <mat-expansion-panel-header>
+        <mat-icon matSuffix>subject</mat-icon>
+        Seguimientos
+      </mat-expansion-panel-header>
+      <ng-template matExpansionPanelContent>
+        <mat-list>
+          <mat-list-item matRipple
+          *ngFor="let action of historial"
+          [routerLink]="[action.Router]"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }">
+            <mat-icon> {{action.Icon}} </mat-icon>
+            {{action.Label}}
+          </mat-list-item>
+        </mat-list>
+      </ng-template>
+    </mat-expansion-panel>-->
+
+    <mat-expansion-panel class="mat-elevation-z0">
+      <mat-expansion-panel-header>
+        <mat-icon matSuffix>card_travel</mat-icon>
+        Empleos
+      </mat-expansion-panel-header>
+      <ng-template matExpansionPanelContent>
+        <mat-list>
+          <mat-list-item matRipple
+          *ngFor="let action of empleo"
+          [routerLink]="[action.Router]"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }">
+            <mat-icon> {{action.Icon}} </mat-icon>
+            {{action.Label}}
+          </mat-list-item>
+        </mat-list>
+      </ng-template>
+    </mat-expansion-panel>
+  </aside>
+
+  <main class="main" [@routerTransition]="getState(o)">
+    <router-outlet #o="outlet"></router-outlet>
+  </main>
+
+</div>

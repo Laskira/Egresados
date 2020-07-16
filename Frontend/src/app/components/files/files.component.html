@@ -1,0 +1,10 @@
+<div class="previous">
+  <input style="display: none;"
+   type="file" #fileInput (click)="reset()">
+  <img
+  [src]="fileSelected"
+  alt="Your file is already"
+  (click)="fileInput.click()"
+  />
+</div>
+

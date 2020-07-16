@@ -1,0 +1,84 @@
+<div class="containerMain">
+    <mat-card>
+        <mat-card-title>
+            {{titulo}} Fichas de Formación
+        </mat-card-title>
+        <br/>
+        <div class="foto">
+            <img src="assets/ficha.svg" alt="">
+        </div>
+        <br/>
+        <mat-card-content>
+            <form [formGroup]="FormFicha" (ngSubmit)="Submit()" class="form-responsive">
+
+                    <mat-form-field appearance="outline" class="media-width">
+                        <mat-label>
+                            Número de Ficha
+                        </mat-label>
+                        <input type="number" matInput
+                        formControlName="Numero" placeholder="Número de Ficha" required autofocus>
+                        <mat-icon matSuffix>post_add</mat-icon>
+                    </mat-form-field>
+
+
+                    <mat-form-field appearance="outline" class="media-width">
+                      <mat-label>Programa de Formación</mat-label>
+                      <mat-icon matSuffix>class</mat-icon>
+                      <mat-select formControlName="IdFormacion">
+                        <mat-option *ngFor="let item of Formacion" [value]="item._id">
+                          {{ item.Nombre }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="media-width">
+                      <mat-label>Sedes de Formación</mat-label>
+                      <mat-icon matSuffix>store_mall_directory</mat-icon>
+                      <mat-select formControlName="IdSede">
+                        <mat-option *ngFor="let item of Sede" [value]="item._id">
+                          {{ item.Nombre }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+
+
+                <mat-form-field appearance="outline" color="accent" class="media-width">
+                    <mat-label>Fecha de inicio de formación</mat-label>
+                    <input matInput [matDatepicker]="dateInicioFormacion" formControlName="InicioFormacion">
+                    <mat-datepicker-toggle matSuffix [for]="dateInicioFormacion"></mat-datepicker-toggle>
+                    <mat-datepicker #dateInicioFormacion color="primary"></mat-datepicker>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" color="accent" class="media-width">
+                    <mat-label>Fecha de fin de etapa lectiva</mat-label>
+                    <input matInput [matDatepicker]="dateLectivaFin" formControlName="FinLectiva">
+                    <mat-datepicker-toggle matSuffix [for]="dateLectivaFin"></mat-datepicker-toggle>
+                    <mat-datepicker #dateLectivaFin color="primary"></mat-datepicker>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" color="accent" class="media-width">
+                    <mat-label>Fecha de fin de formación</mat-label>
+                    <input matInput [matDatepicker]="dateFinFormacion" formControlName="FinFormacion">
+                    <mat-datepicker-toggle matSuffix [for]="dateFinFormacion"></mat-datepicker-toggle>
+                    <mat-datepicker #dateFinFormacion color="primary"></mat-datepicker>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" class="media-width">
+                    <mat-label>
+                        Instructor a cargo
+                    </mat-label>
+                    <input type="text" matInput
+                    formControlName="Instructor" placeholder="Instructor a cargo">
+                    <mat-icon matSuffix>person</mat-icon>
+                </mat-form-field>
+
+               <span>
+                <button mat-raised-button color="primary">
+                  {{titulo}}
+                  <mat-icon>send</mat-icon>
+              </button>
+            </span>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

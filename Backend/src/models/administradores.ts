@@ -18,6 +18,10 @@ const Administrador = new Schema({
         type: String,
         required: true
     },
+    Sexo:  {
+        type: String,
+        required: true
+    },
     Password: {
         type: String,
         required: true
@@ -29,6 +33,7 @@ export interface IAdministracion extends Document {
     Nombres: string;
     P_Apellido: string;
     S_Apellido: string;
+    Sexo: string;
     Password: string;
 }
 
